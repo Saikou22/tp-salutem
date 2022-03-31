@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\AppointmentRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: AppointmentRepository::class)]
+class Appointment
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private int $id;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeImmutable $dateAt;
+
+    #[ORM\ManyToOne(targetEntity: Doctor::class, inversedBy: 'appointments')]
+    private ?Doctor $doctor;
+
+    #[ORM\ManyToOne(targetEntity: Speciality::class, inversedBy: 'appointments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Speciality $speciality;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'appointments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private User $user;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getDateAt(): ?\DateTimeImmutable
+    {
+        return $this->dateAt;
+    }
+
+    public function setDateAt(\DateTimeImmutable $dateAt): self
+    {
+        $this->dateAt = $dateAt;
+
+        return $this;
+    }
+
+    public function getDoctor(): ?Doctor
+    {
+        return $this->doctor;
+    }
+
+    public function setDoctor(?Doctor $doctor): self
+    {
+        $this->doctor = $doctor;
+
+        return $this;
+    }
+
+    public function getSpeciality(): ?Speciality
+    {
+        return $this->speciality;
+    }
+
+    public function setSpeciality(?Speciality $speciality): self
+    {
+        $this->speciality = $speciality;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+}
