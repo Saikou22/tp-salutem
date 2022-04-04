@@ -1,46 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Doctor{% endblock %}
+{% block title %}{{ doctor.fullName }}{% endblock %}
 
 {% block body %}
-    <h1>Doctor</h1>
+    <div class="container">
+        <h1>{{ doctor.fullName }}</h1>
+        <img src="{{ asset('uploads/' ~ doctor.photo) }}" alt="{{ doctor.fullName }}">
+        <p>Spécialité : {{ doctor.speciality.name }}</p>
+        <p>{{ doctor.description }}</p>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ doctor.id }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ doctor.firstName }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ doctor.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ doctor.photo }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ doctor.description }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ doctor.email }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ doctor.phone }}</td>
-            </tr>
-        </tbody>
-    </table>
+        {% if doctor.phone and doctor.email %}
+            <ul>
+                {% if doctor.phone %}
+                    <li>Téléphone : {{ doctor.phone }}</li>
+                {% endif %}
+                {% if doctor.email %}
+                    <li>Email : {{ doctor.email }}</li>
+                {% endif %}
+            </ul>
+        {% endif %}
 
-    <a href="{{ path('app_doctor_index') }}">back to list</a>
-
-    <a href="{{ path('app_doctor_edit', {'id': doctor.id}) }}">edit</a>
-
-    {{ include('doctor/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

@@ -166,6 +166,6 @@ class Doctor
 
     public function getFullName(): string
     {
-        return $this->getFirstName() . " " . $this->getLastName();
+        return "Dr. " . $this->getFirstName() . " " . $this->getLastName();
     }
 }
