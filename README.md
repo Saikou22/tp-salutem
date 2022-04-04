@@ -113,7 +113,17 @@ php bin/console make:controller
 
 Saisir le nom du controller `DefaultController` puis modifier le fichier.
 
+### Utiliser le package symfony/asset pour gérer les URLs vers les assets
 
+```shell
+composer require symfony/asset
+```
+
+Exemple pour charger une image :
+
+```html
+<img src="{{ asset('uploads/doctor-1.jpg') }}" alt="Jack Smith">
+```
 
 ## Démarrage du projet
 
