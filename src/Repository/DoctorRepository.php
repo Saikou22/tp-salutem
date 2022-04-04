@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Doctor;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -43,6 +44,22 @@ class DoctorRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    /**
+     * Récupérer la liste des docteurs avec les jointures
+     * @return Doctor[] Liste des docteurs
+     */
+    public function findAllWithJoins(): array
+    {
+        // SELECT * FROM doctor AS doctor
+        $qb = $this->createQueryBuilder('doctor')
+            // SELECT * FROM doctor AS doctor INNER JOIN speciality AS speciality ON doctor.speciality_id = speciality.id
+            ->addSelect('speciality')
+            ->innerJoin('doctor.speciality', 'speciality')
+            ->orderBy('speciality.name');
+
+        return $qb->getQuery()->getResult();
     }
 
     // /**

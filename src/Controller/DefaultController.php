@@ -14,7 +14,11 @@ class DefaultController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
         // Récupérer en base de données la liste des docteurs
-        $doctors = $doctrine->getRepository(Doctor::class)->findAll();
+        // SELECT * FROM doctor WHERE first_name = 'John' ORDER BY first_name ASC, last_name ASC
+        // $doctors = $doctrine->getRepository(Doctor::class)->findByFirstName('Jack', ['firstName' => 'ASC', 'lastName' => 'ASC']);
+        // SELECT * FROM doctor ORDER BY first_name ASC, last_name ASC
+        // $doctors = $doctrine->getRepository(Doctor::class)->findBy([], ['firstName' => 'ASC', 'lastName' => 'ASC']);
+        $doctors = $doctrine->getRepository(Doctor::class)->findAllWithJoins();
 
         return $this->render('default/index.html.twig', [
             'doctors' => $doctors, // Envoyer la liste des docteurs au template Twig
