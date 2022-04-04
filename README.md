@@ -80,6 +80,23 @@ composer require symfony/webpack-encore-bundle
 npm install
 ```
 
+#### Activation de SASS
+
+Décommenter la ligne suivante dans le fichier webpack.config.js :
+
+```shell
+.enableSassLoader()
+```
+
+Installer les dépendances NPM :
+
+```shell
+npm install sass-loader@^12.0.0 sass --save-dev
+```
+
+Renommer le fichier `assets/styles/app.css` en `assets/styles/app.scss`
+et modifier la ligne appelant le fichier CSS dans le `assets/app.js`.
+
 ## Démarrage du projet
 
 ### Mettre en place l'environnement (une seule fois, après avoir récupéré le projet)
