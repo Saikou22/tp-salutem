@@ -97,6 +97,24 @@ npm install sass-loader@^12.0.0 sass --save-dev
 Renommer le fichier `assets/styles/app.css` en `assets/styles/app.scss`
 et modifier la ligne appelant le fichier CSS dans le `assets/app.js`.
 
+### Installation de Twig
+
+```shell
+composer require twig
+```
+
+### Création d'un controller pour la page d'accueil
+
+Exécuter la commande suivante avant de créer le fichier Twig (la commande va le créer pour vous).
+
+```shell
+php bin/console make:controller
+```
+
+Saisir le nom du controller `DefaultController` puis modifier le fichier.
+
+
+
 ## Démarrage du projet
 
 ### Mettre en place l'environnement (une seule fois, après avoir récupéré le projet)
