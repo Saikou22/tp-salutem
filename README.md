@@ -140,3 +140,9 @@ OU
 ```shell
 symfony serve
 ```
+
+### Démarrer la compilation des assets
+
+```shell
+npm run watch
+```
