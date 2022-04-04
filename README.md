@@ -73,6 +73,13 @@ Exécuter les fixtures
 php bin/console doctrine:fixtures:load
 ```
 
+### Installation de WebPack Encore
+
+```shell
+composer require symfony/webpack-encore-bundle
+npm install
+```
+
 ## Démarrage du projet
 
 ### Mettre en place l'environnement (une seule fois, après avoir récupéré le projet)
@@ -81,6 +88,7 @@ Créer le fichier .env.local
 
 ```shell
 composer install
+php bin/console doctrine:database:drop --force
 php bin/console doctrine:database:create
 php bin/console doctrine:migration:migrate
 php bin/console doctrine:fixtures:load
