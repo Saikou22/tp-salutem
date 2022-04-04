@@ -131,6 +131,12 @@ Exemple pour charger une image :
 <img src="{{ asset('uploads/doctor-1.jpg') }}" alt="Jack Smith">
 ```
 
+### Installation du Profiler
+
+```shell
+composer require --dev symfony/profiler-pack
+```
+
 ## Démarrage du projet
 
 ### Mettre en place l'environnement (une seule fois, après avoir récupéré le projet)
