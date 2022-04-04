@@ -113,6 +113,12 @@ php bin/console make:controller
 
 Saisir le nom du controller `DefaultController` puis modifier le fichier.
 
+Pour utiliser Doctrine dans une méthode du Controller on va utiliser l'injection de dépendance :
+
+```php
+public function index(ManagerRegistry $doctrine): Response
+```
+
 ### Utiliser le package symfony/asset pour gérer les URLs vers les assets
 
 ```shell

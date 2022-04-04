@@ -85,39 +85,23 @@
                     </button>
                 </form>
             </article>
-            <article class="doctor-thumbnail">
-                <img src="{{ asset('uploads/doctor-1.jpg') }}" alt="Jack Smith">
-                <div class="doctor-details">
-                    <h4>Jack Smith</h4>
-                    <p>Homéopathe / Ostéopathe</p>
-                    <a href="#" class="btn btn-dark">
-                        <i class="fa fa-eye"></i>
-                        Plus d'informations
-                    </a>
-                </div>
-            </article>
-            <article class="doctor-thumbnail">
-                <img src="{{ asset('uploads/doctor-2.jpg') }}" alt="Norma Pedric">
-                <div class="doctor-details">
-                    <h4>Norma Pedric</h4>
-                    <p>Médecin Généraliste</p>
-                    <a href="#" class="btn btn-dark">
-                        <i class="fa fa-eye"></i>
-                        Plus d'informations
-                    </a>
-                </div>
-            </article>
-            <article class="doctor-thumbnail">
-                <img src="{{ asset('uploads/doctor-3.jpg') }}" alt="Maria Martin">
-                <div class="doctor-details">
-                    <h4>Maria Martin</h4>
-                    <p>Dentiste</p>
-                    <a href="#" class="btn btn-dark">
-                        <i class="fa fa-eye"></i>
-                        Plus d'informations
-                    </a>
-                </div>
-            </article>
+
+            {% for doctor in doctors %}
+                <article class="doctor-thumbnail">
+                    <img src="{{ asset('uploads/' ~ doctor.photo) }}" alt="{{ doctor.fullName }}">
+                    <div class="doctor-details">
+                        <h4>
+                            {{ doctor.fullName }}
+                        </h4>
+                        <p>{{ doctor.speciality.name }}</p>
+                        <a href="#" class="btn btn-dark">
+                            <i class="fa fa-eye"></i>
+                            Plus d'informations
+                        </a>
+                    </div>
+                </article>
+            {% endfor %}
+
         </div>
     </section>
 {% endblock %}
