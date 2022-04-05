@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Doctor;
 use App\Entity\OpeningHour;
+use App\Repository\OpeningHourRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,14 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'doctors' => $doctors, // Envoyer la liste des docteurs au template Twig
             'openingHours' => $openingHours, // Envoyer la liste des horaires d'ouverture au template Twig
+            'today' => new \DateTime()
+        ]);
+    }
+
+    public function footer(OpeningHourRepository $openingHourRepository): Response
+    {
+        return $this->render('default/_footer.html.twig', [
+            'openingHours' => $openingHourRepository->findBy([], ['weekNumber' => 'ASC']),
             'today' => new \DateTime()
         ]);
     }

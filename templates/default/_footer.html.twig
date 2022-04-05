@@ -1,0 +1,45 @@
+<footer class="main-footer">
+    <section class="container">
+        <article>
+            <div class="logo">
+                <i class="fa fa-heartbeat"></i>
+                Salutem
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis, dolorem doloremque iste molestiae nulla officiis provident quas quos, rerum sapiente sed sint voluptas? Accusantium asperiores dolor dolores in libero?</p>
+        </article>
+        <article>
+            <h3>Nous contacter</h3>
+            <ul class="contact-infos">
+                <li>
+                    <i class="fa fa-envelope"></i>
+                    <a href="mailto:contact@salutem.fr">contact@salutem.fr</a>
+                </li>
+                <li>
+                    <i class="fa fa-phone"></i>
+                    <a href="tel:0243785462">0243785462</a>
+                </li>
+                <li>
+                    <i class="fa fa-ambulance"></i>
+                    <a href="tel:0243785443">0243785443</a>
+                </li>
+            </ul>
+        </article>
+        <article>
+            <h3>Horaires d'ouverture</h3>
+            <table class="opening-hours">
+                {% for openingHour in openingHours %}
+                    <tr class="{{ today|date('N') == openingHour.weekNumber ? 'today' : '' }}">
+                        <td>{{ openingHour.weekDay }}</td>
+                        <td class="hours">
+                            {% if openingHour.openingTime is not null and openingHour.closingTime is not null %}
+                                {{ openingHour.openingTime|date('G') }}h - {{ openingHour.closingTime|date('G') }}h
+                            {% else %}
+                                Fermé
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </article>
+    </section>
+</footer>
