@@ -18,34 +18,20 @@
             <article>
                 <h3>Horaires d'ouverture</h3>
                 <table class="opening-hours">
-                    <tr>
-                        <td>Lundi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr class="today">
-                        <td>Mardi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Mercredi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Jeudi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Vendredi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Samedi</td>
-                        <td class="hours">9h - 12h</td>
-                    </tr>
-                    <tr>
-                        <td>Dimanche</td>
-                        <td class="hours">Fermé</td>
-                    </tr>
+
+                    {% for openingHour in openingHours %}
+                        <tr class="{{ today|date('N') == openingHour.weekNumber ? 'today' : '' }}">
+                            <td>{{ openingHour.weekDay }}</td>
+                            <td class="hours">
+                                {% if openingHour.openingTime is not null and openingHour.closingTime is not null %}
+                                    {{ openingHour.openingTime|date('G') }}h - {{ openingHour.closingTime|date('G') }}h
+                                {% else %}
+                                    Fermé
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+
                 </table>
             </article>
             <article>

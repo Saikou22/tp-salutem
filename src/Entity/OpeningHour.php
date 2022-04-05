@@ -20,10 +20,10 @@ class OpeningHour
     private int $weekNumber;
 
     #[ORM\Column(type: 'time', nullable: true)]
-    private ?\DateTimeImmutable $openingTime;
+    private ?\DateTimeInterface $openingTime;
 
     #[ORM\Column(type: 'time', nullable: true)]
-    private ?\DateTimeImmutable $closingTime;
+    private ?\DateTimeInterface $closingTime;
 
     public function getId(): ?int
     {
