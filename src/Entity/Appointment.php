@@ -27,6 +27,9 @@ class Appointment
     #[ORM\JoinColumn(nullable: false)]
     private User $user;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $message;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,18 @@ class Appointment
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(?string $message): self
+    {
+        $this->message = $message;
 
         return $this;
     }

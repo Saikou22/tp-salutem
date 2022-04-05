@@ -315,6 +315,13 @@ footer.main-footer table.opening-hours tr td.hours {
     grid-row-gap: 1em;
 }
 
+.doctors .appointment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .doctors .form-appointment {
     display: flex;
     flex-direction: column;

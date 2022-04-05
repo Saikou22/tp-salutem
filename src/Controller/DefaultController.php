@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Appointment;
 use App\Entity\Doctor;
 use App\Entity\OpeningHour;
+use App\Form\AppointmentType;
 use App\Repository\OpeningHourRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,10 +25,14 @@ class DefaultController extends AbstractController
         $doctors = $doctrine->getRepository(Doctor::class)->findAllWithJoins();
         $openingHours = $doctrine->getRepository(OpeningHour::class)->findBy([], ['weekNumber' => 'ASC']);
 
-        return $this->render('default/index.html.twig', [
+        $appointment = new Appointment();
+        $form = $this->createForm(AppointmentType::class, $appointment);
+
+        return $this->renderForm('default/index.html.twig', [
             'doctors' => $doctors, // Envoyer la liste des docteurs au template Twig
             'openingHours' => $openingHours, // Envoyer la liste des horaires d'ouverture au template Twig
-            'today' => new \DateTime()
+            'today' => new \DateTime(),
+            'form' => $form
         ]);
     }
 
