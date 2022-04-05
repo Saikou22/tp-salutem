@@ -11,19 +11,19 @@ class OpeningHour
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $weekDay;
+    private ?string $weekDay;
 
     #[ORM\Column(type: 'integer')]
-    private $weekNumber;
+    private int $weekNumber;
 
     #[ORM\Column(type: 'time', nullable: true)]
-    private $openingTime;
+    private ?\DateTimeImmutable $openingTime;
 
     #[ORM\Column(type: 'time', nullable: true)]
-    private $closingTime;
+    private ?\DateTimeImmutable $closingTime;
 
     public function getId(): ?int
     {
