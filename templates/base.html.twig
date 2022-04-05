@@ -55,7 +55,11 @@
                     <li><a href="{{ path('app_doctor_index') }}">Nos docteurs</a></li>
                     <li><a href="#">Nous contacter</a></li>
                     <li>
-                        <a href="{{ path('login') }}">Se connecter</a>
+                        {% if app.user %}
+                            <a href="{{ path('logout') }}">Se déconnecter</a>
+                        {% else %}
+                            <a href="{{ path('login') }}">Se connecter</a>
+                        {% endif %}
                     </li>
                 </ul>
             </div>

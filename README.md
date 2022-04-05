@@ -158,7 +158,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     #[Route('/login', name: 'login')]
-    public function index(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         return $this->render('login/index.html.twig', [
             'error' => $authenticationUtils->getLastAuthenticationError(),
@@ -212,6 +212,24 @@ security:
                 login_path: login
                 check_path: login
                 enable_csrf: true
+```
+
+#### Création de la route logout
+
+```yaml
+# config/packages/security.yaml
+security:
+    # ...
+
+    firewalls:
+        main:
+            # ...
+            logout:
+                path: app_logout
+```
+
+```php
+
 ```
 
 ## Démarrage du projet
