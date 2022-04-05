@@ -137,6 +137,83 @@ Exemple pour charger une image :
 composer require --dev symfony/profiler-pack
 ```
 
+### Gestion de l'authentification
+
+#### Création du formulaire de login
+
+```shell
+php bin/console make:controller Login
+```
+
+```php
+// src/Controller/LoginController.php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
+class LoginController extends AbstractController
+{
+    #[Route('/login', name: 'login')]
+    public function index(AuthenticationUtils $authenticationUtils): Response
+    {
+        return $this->render('login/index.html.twig', [
+            'error' => $authenticationUtils->getLastAuthenticationError(),
+            'last_username' => $authenticationUtils->getLastUsername()
+        ]);
+    }
+}
+```
+
+```html
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <form action="{{ path('login') }}" method="post">
+            <label for="username">Email:</label>
+            <input type="email" id="username" name="_username" value="{{ last_username }}"/>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="_password"/>
+
+            {# If you want to control the URL the user is redirected to on success
+            <input type="hidden" name="_target_path" value="/account"/> #}
+
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button type="submit">login</button>
+        </form>
+    </div>
+{% endblock %}
+
+```
+
+```yaml
+# config/packages/security.yaml
+security:
+    # ...
+
+    firewalls:
+        main:
+            # ...
+            form_login:
+                # "login" is the name of the route created previously
+                login_path: login
+                check_path: login
+                enable_csrf: true
+```
+
 ## Démarrage du projet
 
 ### Mettre en place l'environnement (une seule fois, après avoir récupéré le projet)
