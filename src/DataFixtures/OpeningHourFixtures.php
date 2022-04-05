@@ -20,12 +20,14 @@ class OpeningHourFixtures extends Fixture
             ["Dimanche", 7, null, null],
         ];
 
-        $monday = new OpeningHour();
-        $monday->setWeekDay("Lundi");
-        $monday->setWeekNumber(1);
-        $monday->setOpeningTime(new \DateTimeImmutable("2022-01-01 09:00:00"));
-        $monday->setClosingTime(new \DateTimeImmutable("2022-01-01 17:00:00"));
-        $manager->persist($monday);
+        foreach ($days as $day) {
+            $openingHour = new OpeningHour();
+            $openingHour->setWeekDay($day[0]);
+            $openingHour->setWeekNumber($day[1]);
+            $openingHour->setOpeningTime($day[2]);
+            $openingHour->setClosingTime($day[3]);
+            $manager->persist($openingHour);
+        }
 
         $manager->flush();
     }
