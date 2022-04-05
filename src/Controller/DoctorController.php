@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Doctor;
 use App\Form\DoctorType;
 use App\Repository\DoctorRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +23,7 @@ class DoctorController extends AbstractController
     }
 
     #[Route('/new', name: 'app_doctor_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, DoctorRepository $doctorRepository): Response
     {
         $doctor = new Doctor();
@@ -48,6 +50,7 @@ class DoctorController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_doctor_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Doctor $doctor, DoctorRepository $doctorRepository): Response
     {
         $form = $this->createForm(DoctorType::class, $doctor);
@@ -65,6 +68,7 @@ class DoctorController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_doctor_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Doctor $doctor, DoctorRepository $doctorRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$doctor->getId(), $request->request->get('_token'))) {

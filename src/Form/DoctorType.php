@@ -3,7 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Doctor;
+use App\Entity\Speciality;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,9 +19,16 @@ class DoctorType extends AbstractType
             ->add('lastName')
             ->add('photo')
             ->add('description')
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'attr' => ['placeholder' => 'Votre email']
+            ])
             ->add('phone')
-            ->add('speciality')
+            ->add('speciality', EntityType::class, [
+                'class' => Speciality::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false
+            ])
         ;
     }
 
