@@ -73,19 +73,7 @@
             </article>
 
             {% for doctor in doctors %}
-                <article class="doctor-thumbnail">
-                    <img src="{{ asset('uploads/' ~ doctor.photo) }}" alt="{{ doctor.fullName }}">
-                    <div class="doctor-details">
-                        <h4>
-                            {{ doctor.fullName }}
-                        </h4>
-                        <p>{{ doctor.speciality.name }}</p>
-                        <a href="{{ path('app_doctor_show', {'id': doctor.id}) }}" class="btn btn-dark">
-                            <i class="fa fa-eye"></i>
-                            Plus d'informations
-                        </a>
-                    </div>
-                </article>
+                {% include 'doctor/_card.html.twig' with {'doctor': doctor} only %}
             {% endfor %}
 
         </div>
