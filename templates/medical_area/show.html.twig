@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ medicalArea.name }}{% endblock %}
+
+{% block body %}
+
+    <section class="container">
+        <h1>{{ medicalArea.name }}</h1>
+        {% if medicalArea.doctors|length == 0 %}
+            <p>Il n'y a pas de docteurs dans cet établissement !</p>
+        {% else %}
+            <p>Liste des docteurs dans cet établissement :</p>
+        {% endif %}
+    </section>
+
+    <section class="doctors">
+        <div class="container">
+            {% for doctor in medicalArea.doctors %}
+                {% include 'doctor/_card.html.twig' with {'doctor': doctor} only %}
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}
+
