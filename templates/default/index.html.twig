@@ -57,6 +57,9 @@
                             Envoyer
                         </button>
                     {{ form_end(form) }}
+                    {% if appointmentSaved %}
+                        <p>Votre demande a bien été enregistrée pour un rdv le {{ appointment.dateAt|date('d/m/Y') }}</p>
+                    {% endif %}
                 {% else %}
                     <a href="{{ path('login') }}" class="btn btn-light">Se connecter</a>
                 {% endif %}

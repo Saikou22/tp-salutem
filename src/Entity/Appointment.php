@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AppointmentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AppointmentRepository::class)]
 class Appointment
@@ -14,6 +15,7 @@ class Appointment
     private int $id;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\GreaterThanOrEqual('now')] // Bloquer la création de rendez-vous avant aujourd'hui (côté serveur)
     private \DateTimeImmutable $dateAt;
 
     #[ORM\ManyToOne(targetEntity: Doctor::class, inversedBy: 'appointments')]

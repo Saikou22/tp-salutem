@@ -17,6 +17,10 @@ class AppointmentType extends AbstractType
         $builder
             ->add('dateAt', DateTimeType::class, [
                 'widget' => 'single_text',
+                'input' => 'datetime_immutable',
+                'attr' => [
+                    'min' => (new \DateTime())->format('Y-m-d\TH:i')
+                ]
             ])
             // ->add('doctor')
             ->add('speciality', EntityType::class, [
