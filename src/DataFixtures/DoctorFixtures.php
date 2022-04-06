@@ -24,6 +24,8 @@ class DoctorFixtures extends Fixture implements DependentFixtureInterface
         $jack->setPhone("0685478522");
         $jack->setDescription("La description de Jack Smith");
         $jack->setSpeciality($this->getReference(SpecialityFixtures::OSTEO_REFERENCE));
+        $jack->addMedicalArea($this->getReference(MedicalAreaFixtures::HOSPITAL_LAVAL_REFERENCE));
+        $jack->addMedicalArea($this->getReference(MedicalAreaFixtures::OFFICE_LOUVERNE_REFERENCE));
         $manager->persist($jack);
         $this->addReference(self::JACK_REFERENCE, $jack);
 
@@ -34,6 +36,7 @@ class DoctorFixtures extends Fixture implements DependentFixtureInterface
         $norma->setEmail("norma.pedric@gmail.com");
         $norma->setDescription("La description de Norma Pedric");
         $norma->setSpeciality($this->getReference(SpecialityFixtures::GP_REFERENCE));
+        $norma->addMedicalArea($this->getReference(MedicalAreaFixtures::OFFICE_LOUVERNE_REFERENCE));
         $manager->persist($norma);
         $this->addReference(self::NORMA_REFERENCE, $norma);
 
@@ -50,6 +53,6 @@ class DoctorFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies(): array
     {
-        return [SpecialityFixtures::class];
+        return [SpecialityFixtures::class, MedicalAreaFixtures::class];
     }
 }
