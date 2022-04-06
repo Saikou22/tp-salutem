@@ -40,9 +40,13 @@ class Doctor
     #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: Appointment::class)]
     private Collection $appointments;
 
+    #[ORM\ManyToMany(targetEntity: MedicalArea::class, mappedBy: 'doctors')]
+    private Collection $medicalAreas;
+
     public function __construct()
     {
         $this->appointments = new ArrayCollection();
+        $this->medicalAreas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,5 +171,32 @@ class Doctor
     public function getFullName(): string
     {
         return "Dr. " . $this->getFirstName() . " " . $this->getLastName();
+    }
+
+    /**
+     * @return Collection<int, MedicalArea>
+     */
+    public function getMedicalAreas(): Collection
+    {
+        return $this->medicalAreas;
+    }
+
+    public function addMedicalArea(MedicalArea $medicalArea): self
+    {
+        if (!$this->medicalAreas->contains($medicalArea)) {
+            $this->medicalAreas[] = $medicalArea;
+            $medicalArea->addDoctor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedicalArea(MedicalArea $medicalArea): self
+    {
+        if ($this->medicalAreas->removeElement($medicalArea)) {
+            $medicalArea->removeDoctor($this);
+        }
+
+        return $this;
     }
 }
