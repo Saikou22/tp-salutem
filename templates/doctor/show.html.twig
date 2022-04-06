@@ -20,5 +20,15 @@
             </ul>
         {% endif %}
 
+        <h2>Vous pouvez prendre rendez-vous dans ces lieux :</h2>
+        <ul>
+            {% for area in doctor.medicalAreas %}
+                <li>
+                    {{ area.name }}
+                    <a href="#" class="btn btn-light">{{ area.areaType.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
     </div>
 {% endblock %}

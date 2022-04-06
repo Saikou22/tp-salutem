@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Doctor;
 use App\Form\DoctorType;
 use App\Repository\DoctorRepository;
+use App\Repository\MedicalAreaRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
