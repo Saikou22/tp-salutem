@@ -1,1 +1,1 @@
-console.log('admin')
+import './styles/admin.scss';
