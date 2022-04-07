@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Appointment;
 use App\Entity\Doctor;
 use App\Entity\OpeningHour;
-use App\Form\AppointmentType;
+use App\Form\AppointmentFrontType;
 use App\Repository\OpeningHourRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +28,7 @@ class DefaultController extends AbstractController
         $appointmentSaved = false;
 
         $appointment = new Appointment();
-        $form = $this->createForm(AppointmentType::class, $appointment);
+        $form = $this->createForm(AppointmentFrontType::class, $appointment);
 
         $form->handleRequest($request); // Récupérer les données de $_POST
         if ($form->isSubmitted() && $form->isValid()) {
