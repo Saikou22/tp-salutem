@@ -96,4 +96,14 @@ class Appointment
 
         return $this;
     }
+
+    public function hasProblems(): bool
+    {
+        // appointment.doctor and appointment.speciality.id != appointment.doctor.speciality.id
+        if ($this->getDoctor() && $this->getSpeciality()->getId() !== $this->getDoctor()->getSpeciality()->getId()) {
+            return true;
+        }
+
+        return false;
+    }
 }

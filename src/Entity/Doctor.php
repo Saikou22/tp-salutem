@@ -168,11 +168,6 @@ class Doctor
         return $this;
     }
 
-    public function getFullName(): string
-    {
-        return "Dr. " . $this->getFirstName() . " " . $this->getLastName();
-    }
-
     /**
      * @return Collection<int, MedicalArea>
      */
@@ -198,5 +193,15 @@ class Doctor
         }
 
         return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return "Dr. " . $this->getFirstName() . " " . $this->getLastName();
+    }
+
+    public function getFullNameWithSpeciality(): string
+    {
+        return $this->getFullName() . " (" . $this->getSpeciality()->getName() . ")";
     }
 }

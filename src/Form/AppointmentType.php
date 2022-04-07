@@ -24,11 +24,6 @@ class AppointmentType extends AbstractType
                     'min' => (new \DateTime())->format('Y-m-d\TH:i')
                 ]
             ])
-            ->add('message')
-            ->add('doctor', EntityType::class, [
-                'class' => Doctor::class,
-                'choice_label' => 'fullName'
-            ])
             ->add('speciality', EntityType::class, [
                 'class' => Speciality::class,
                 'choice_label' => 'name'
@@ -37,6 +32,11 @@ class AppointmentType extends AbstractType
                 'class' => User::class,
                 'choice_label' => 'email'
             ])
+            ->add('doctor', EntityType::class, [
+                'class' => Doctor::class,
+                'choice_label' => 'fullNameWithSpeciality'
+            ])
+            ->add('message')
         ;
     }
 
