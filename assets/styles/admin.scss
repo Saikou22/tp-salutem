@@ -3,3 +3,9 @@
 @import "@ttskch/select2-bootstrap4-theme/src/select2-bootstrap4";
 @import "fontawesome-4.7";
 @import "./dashboard";
+
+table {
+  .img-thumbnail {
+    width: 150px;
+  }
+}

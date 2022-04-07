@@ -5,7 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Doctor;
 use App\Form\DoctorType;
 use App\Repository\DoctorRepository;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,13 +24,21 @@ class DoctorController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_doctor_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DoctorRepository $doctorRepository): Response
+    public function new(Request $request, DoctorRepository $doctorRepository, FileUploader $fileUploader): Response
     {
         $doctor = new Doctor();
         $form = $this->createForm(DoctorType::class, $doctor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Gérer l'upload de la photo
+            /** @var UploadedFile $photoFile */
+            $photoFile = $form->get('photo')->getData(); // $_FILES['photo']
+            if ($photoFile) {
+                $photoFileName = $fileUploader->upload($photoFile);
+                $doctor->setPhoto($photoFileName);
+            }
+
             $doctorRepository->add($doctor);
             return $this->redirectToRoute('app_admin_doctor_index', [], Response::HTTP_SEE_OTHER);
         }

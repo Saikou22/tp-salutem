@@ -24,7 +24,9 @@
                 <td>{{ doctor.id }}</td>
                 <td>{{ doctor.firstName }}</td>
                 <td>{{ doctor.lastName }}</td>
-                <td>{{ doctor.photo }}</td>
+                <td>
+                    <img src="{{ asset(uploadsDirectory ~ doctor.photo) }}" class="img-fluid img-thumbnail" alt="{{ doctor.fullName }}">
+                </td>
                 <td>{{ doctor.description }}</td>
                 <td>{{ doctor.email }}</td>
                 <td>{{ doctor.phone }}</td>
