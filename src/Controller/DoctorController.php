@@ -3,12 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Doctor;
-use App\Form\DoctorType;
 use App\Repository\DoctorRepository;
-use App\Repository\MedicalAreaRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,25 +19,6 @@ class DoctorController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_doctor_new', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
-    public function new(Request $request, DoctorRepository $doctorRepository): Response
-    {
-        $doctor = new Doctor();
-        $form = $this->createForm(DoctorType::class, $doctor);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $doctorRepository->add($doctor);
-            return $this->redirectToRoute('app_doctor_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('doctor/new.html.twig', [
-            'doctor' => $doctor,
-            'form' => $form,
-        ]);
-    }
-
     #[Route('/{id}', name: 'app_doctor_show', methods: ['GET'])]
     public function show(Doctor $doctor): Response
     {
@@ -50,32 +27,4 @@ class DoctorController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_doctor_edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
-    public function edit(Request $request, Doctor $doctor, DoctorRepository $doctorRepository): Response
-    {
-        $form = $this->createForm(DoctorType::class, $doctor);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $doctorRepository->add($doctor);
-            return $this->redirectToRoute('app_doctor_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('doctor/edit.html.twig', [
-            'doctor' => $doctor,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_doctor_delete', methods: ['POST'])]
-    #[IsGranted('ROLE_ADMIN')]
-    public function delete(Request $request, Doctor $doctor, DoctorRepository $doctorRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$doctor->getId(), $request->request->get('_token'))) {
-            $doctorRepository->remove($doctor);
-        }
-
-        return $this->redirectToRoute('app_doctor_index', [], Response::HTTP_SEE_OTHER);
-    }
 }
