@@ -35,7 +35,7 @@ class Doctor
 
     #[ORM\ManyToOne(targetEntity: Speciality::class, inversedBy: 'doctors')]
     #[ORM\JoinColumn(nullable: false)]
-    private Speciality $speciality;
+    private ?Speciality $speciality = null;
 
     #[ORM\OneToMany(mappedBy: 'doctor', targetEntity: Appointment::class)]
     private Collection $appointments;
@@ -202,6 +202,10 @@ class Doctor
 
     public function getFullNameWithSpeciality(): string
     {
+        if($this->getSpeciality() === null) {
+            return $this->getFullName();
+        }
+
         return $this->getFullName() . " (" . $this->getSpeciality()->getName() . ")";
     }
 }
