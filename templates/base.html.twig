@@ -13,64 +13,9 @@
             {{ encore_entry_script_tags('app', null, 'front') }}
         {% endblock %}
     </head>
+
     <body>
-    <header>
-        <div class="header-top">
-            <div class="container">
-                <div class="social-networks">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                </div>
-                <div class="contact-infos">
-                    <ul>
-                        <li>
-                            <i class="fa fa-phone"></i>
-                            <a href="tel:0243785462">0243785462</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-envelope"></i>
-                            <a href="mailto:contact@salutem.fr">contact@salutem.fr</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="header-middle">
-            <div class="container">
-                <div class="logo">
-                    <i class="fa fa-heartbeat"></i>
-                    Salutem
-                </div>
-                <div class="status">
-                    Votre centre est actuellement <span class="open">ouvert</span>
-                </div>
-            </div>
-        </div>
-        <div class="header-menu">
-            <div class="container">
-                <ul>
-                    <li><a href="{{ path('home') }}">Accueil</a></li>
-                    <li><a href="#">La maison médicale</a></li>
-                    <li><a href="{{ path('app_doctor_index') }}">Nos docteurs</a></li>
-                    <li><a href="{{ path('app_medical_area') }}">Nos établissements</a></li>
-                    <li><a href="#">Nous contacter</a></li>
-                    <li>
-                        {% if app.user %}
-                            <a href="{{ path('logout') }}">Se déconnecter</a>
-                        {% else %}
-                            <a href="{{ path('login') }}">Se connecter</a>
-                        {% endif %}
-                    </li>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li>
-                            <a href="{{ path('admin_dashboard') }}">Admin</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </header>
+    {{ render(controller('App\\Controller\\DefaultController::header')) }}
 
     <main>
         {% block body %}{% endblock %}
